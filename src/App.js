@@ -3,35 +3,63 @@ import List from './List';
 import './App.css';
 
 class App extends Component {
+    //MOUNTING
     constructor(props) {
         super(props);
-        this.state = {
-            term: '',
-            items: []
-        };
+        console.log("constructor", "props: ", props);
+    }
+    //MOUNTING
+    componentWillMount() {
+        // THIS GET FIRED BEFORE RENDER METHODS
+        console.log("componentWillMount fired");
     }
 
-    onChange = (event) => {
-        this.setState({ term: event.target.value });
-    };
+    //MOUNTING
+    componentDidMount() {
+        // FOR setState AND FETCH DATA FOR API OR OUR JSON FILE
+        console.log("componentDidMount fired");
+    }
 
-    onSubmit = (event) => {
-        event.preventDefault();
-        this.setState({
-            term: '',
-            items: [...this.state.items, this.state.term]
-        });
-    };
+    //UPDATING
+    componentWillReceiveProps(nextProps) {
+        //WHEN COMPONENT WILL RECEIVE NEW PROPS FROM PARENT
+        console.log("componentWillReceiveProps fired, nextProps:", nextProps);
+    }
 
+    //UPDATING
+    shouldComponentUpdate(nextProps, nextState) {
+        // LET REACT KNOW IF A COMPONENT'S OUTPUT IS NOT AFFECTED BY THE CURRENT CHANGE IN STATE/PROPS
+        console.log("shouldComponentUpdate fired");
+        return true;
+    }
+
+    //UPDATING
+    componentWillUpdate(nextProps, nextState) {
+        // WHEN THERE IS A CHANGE IN STATE AND THE COMPONENT WILL RE-RENDER AND CAN COMPARE NEW PROPS/STATE WITH CURRENT STATE/PROPS
+        console.log(
+            "componentWillUpdate, nextProps:",
+            nextProps,
+            " nextState:",
+            nextState
+        );
+    }
+
+    //UPDATING
+    componentDidUpdate(prevProps, prevState) {
+        //WHEN THE COMPONENT RE-RENDERED AND CAN COMPARE PREVIOUS PROPS/STATE WITH NEW STATE/PROPS
+        console.log(
+            "componentDidUpdate, prevProps:",
+            prevProps,
+            " prevState:",
+            prevState
+        );
+    }
 
     render() {
+        console.log("render fired");
         return (
             <div>
-                <form className="App" onSubmit={this.onSubmit}>
-                    <input value={this.state.term} onChange={this.onChange} />
-                    <button>Submit</button>
-                </form>
-                <List items={this.state.items} />
+                Counter value: {this.props.counter}
             </div>
         );
     }
